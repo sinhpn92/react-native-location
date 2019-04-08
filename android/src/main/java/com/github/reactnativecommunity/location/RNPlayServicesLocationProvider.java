@@ -174,6 +174,7 @@ public class RNPlayServicesLocationProvider implements RNLocationProvider {
                 } else {
                     // Reject the promise with an error
                     promise.reject("500", "Error configuring react-native-location", e);
+                    Utils.emitEvent(context, "locationUpdated", null);
                 }
             }
         });
@@ -207,6 +208,9 @@ public class RNPlayServicesLocationProvider implements RNLocationProvider {
         } else if (pendingConfigurePromise != null) {
             // If not, we reject the promise
             pendingConfigurePromise.reject("500", "Error configuring react-native-location");
+            Utils.emitEvent(context, "locationUpdated", null);
+        } else {
+            Utils.emitEvent(context, "locationUpdated", null);
         }
 
         // Cleanup our stored state

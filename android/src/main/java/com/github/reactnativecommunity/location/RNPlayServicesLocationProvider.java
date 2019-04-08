@@ -133,6 +133,8 @@ public class RNPlayServicesLocationProvider implements RNLocationProvider {
 
         // Return early if no changes were made
         if (!hasChanges) {
+            isUpdatingLocation = true;
+            reSetUpLocationListeners();
             promise.resolve(null);
             return;
         }
@@ -147,6 +149,7 @@ public class RNPlayServicesLocationProvider implements RNLocationProvider {
         task.addOnSuccessListener(new OnSuccessListener<LocationSettingsResponse>() {
             @Override
             public void onSuccess(LocationSettingsResponse locationSettingsResponse) {
+                isUpdatingLocation = true;
                 reSetUpLocationListeners();
                 promise.resolve(null);
             }
